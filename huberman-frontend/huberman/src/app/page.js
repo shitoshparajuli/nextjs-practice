@@ -8,13 +8,21 @@ import Footer from '@/components/footerComponent'
 
 export default function MyPage() {
 
+  const [openAiResponse, setOpenAiResponse] = useState('');
+  const [youtubeUrls, setYoutubeUrls] = useState([]);
+
+  const handleSetOpenAiResponse = (response, youtubeUrls) => {
+    setOpenAiResponse(response);
+    setYoutubeUrls(youtubeUrls);
+  };
+
   return (
     <div className="flex flex-col justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
     <div className="w-full flex flex-col items-center">
         <Header />
-        <InputComponent />
-        <Answer />
-        <Sources />
+        <InputComponent onReceiveResponse={handleSetOpenAiResponse} />
+        <Answer response={openAiResponse} />
+        <Sources youtubeUrls={youtubeUrls} />
         <Footer />
     </div>
     </div>

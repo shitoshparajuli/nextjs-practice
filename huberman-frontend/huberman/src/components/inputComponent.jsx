@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function InputComponent() {
+export default function InputComponent({ onReceiveResponse }) {
   // State to store the user's question
   const [question, setQuestion] = useState('');
 
@@ -23,10 +23,14 @@ export default function InputComponent() {
         }),
       });
 
-      const data = await response.json();
-      console.log(data); // Log the response data or handle it as needed
-
-      // Here you might want to update your app state with the received data
+      const json_response = await response.json();
+      console.log(json_response);
+      if (json_response && json_response.data && json_response.data.open_ai_response) {
+        console.log(json_response.data.open_ai_response)
+        const youtubeUrls = json_response.data.context_responses.map(cr => cr.youtube_url).filter(url => !!url);
+        console.log(youtubeUrls)
+        onReceiveResponse(json_response.data.open_ai_response, youtubeUrls); // Pass the response up to the parent
+      }
     } catch (error) {
       console.error("Failed to fetch:", error);
       // Handle error scenarios
