@@ -31,3 +31,38 @@ body {
     text-wrap: balance;
   }
 }
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: black; }
+}
+
+.typing-effect {
+  border-right: .15em solid black;
+  animation: blink-caret .75s step-end infinite;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Adjust the animation duration to fit the length of the text and the desired speed */
+.typing-animation {
+  display: inline-block;
+  overflow: hidden;
+  animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.typing-cursor {
+  animation: blink 1s step-start infinite;
+  opacity: 1;
+}
+
+
