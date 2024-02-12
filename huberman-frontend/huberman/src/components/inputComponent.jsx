@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function InputComponent({ onReceiveResponse }) {
+export default function InputComponent({ onReceiveResponse, setIsLoading }) {
   // State to store the user's question
   const [question, setQuestion] = useState('');
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
+
+    setIsLoading(true); // Start loading
 
     // Make the API call
     try {
@@ -34,6 +36,8 @@ export default function InputComponent({ onReceiveResponse }) {
     } catch (error) {
       console.error("Failed to fetch:", error);
       // Handle error scenarios
+    } finally {
+      setIsLoading(false); // End loading
     }
   };
 

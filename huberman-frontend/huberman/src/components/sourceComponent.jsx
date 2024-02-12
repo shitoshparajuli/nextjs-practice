@@ -2,6 +2,10 @@
 import Link from "next/link";
 
 export default function Sources({ youtubeUrls }) {
+
+  if (youtubeUrls.length == 0) {
+    return null; // Don't render the div if there's no response yet
+  }
   return (
     <div className="mt-8 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">Sources</h2>

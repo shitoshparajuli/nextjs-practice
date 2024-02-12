@@ -10,6 +10,7 @@ export default function MyPage() {
 
   const [openAiResponse, setOpenAiResponse] = useState('');
   const [youtubeUrls, setYoutubeUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSetOpenAiResponse = (response, youtubeUrls) => {
     setOpenAiResponse(response);
@@ -20,7 +21,13 @@ export default function MyPage() {
     <div className="flex flex-col justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
     <div className="w-full flex flex-col items-center">
         <Header />
-        <InputComponent onReceiveResponse={handleSetOpenAiResponse} />
+        <InputComponent onReceiveResponse={handleSetOpenAiResponse} setIsLoading={setIsLoading} />
+        {isLoading && (
+          <div className="flex flex-col items-center justify-center">
+            <div className="spinner"></div>
+            <div className="text-lg mt-2">Huberman is thinking...</div>
+          </div>
+        )}
         <Answer response={openAiResponse} />
         <Sources youtubeUrls={youtubeUrls} />
         <Footer />
